@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/reset.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="shortcut icon" href="/assets/uol_logo.jpeg" type="image/jpeg">
+
+    <title>Bate-papo UOL</title>
+</head>
+
+<body>
+    <header>
+        <img src="/assets/chat_logo.png" alt="logo">
+        <ion-icon name="people" onclick="openMenu()"></ion-icon>
+    </header>
+
+    <div class="menu-container">
+        <div onclick="closeMenu(this)"></div>
+        <div class="menu">
+            <section>
+                <h2>Escolha a visibilidade:</h2>
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="lock-open"></ion-icon>
+                        <p>Público</p>
+                    </div>
+                    <ion-icon class="active" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="lock-closed"></ion-icon>
+                        <p>Reservadamente</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+            </section>
+
+            <section>
+                <h2>Escolha um contato para enviar mensagem:</h2>
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="people"></ion-icon>
+                        <p>Todos</p>
+                    </div>
+                    <ion-icon class="active" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+                <div class="menu-option" onclick="selectMenuOption(this)">
+                    <div>
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>Maria</p>
+                    </div>
+                    <ion-icon class="" name="checkmark"></ion-icon>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <main>
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container in-out-color">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container private-color">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+
+        <div class="message-container">
+            <span class="time">(09:22:18)</span>
+            <span class="msg-infos">
+                <span class="msg-sender">Maria</span>
+                <span>para</span>
+                <span class="msg-receiver">Joao:</span>
+            </span>
+            <span class="msg-text">Oi gatinha, quer tc?</span>
+        </div>
+    </main>
+
+    <div class="message-input">
+        <div>
+            <input type="text" name="message" id="new-message" placeholder="Escreva aqui...">
+            <div class="private-info">Enviando para Maria (reservadamente)</div>
+        </div>
+        <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="/scripts/scripts.js"></script>
+</body>
+
+</html>
