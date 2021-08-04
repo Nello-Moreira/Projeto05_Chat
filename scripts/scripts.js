@@ -4,7 +4,6 @@ const axiosBase = axios.create({
 });
 
 let allMessages = "";
-let participants = [];
 
 function openMenu() {
     const menuContainer = document.querySelector(".menu-container");
@@ -86,8 +85,36 @@ function getMessages(){
 
 function getParticipants(){
     function returnParticipants(response){
-        participants = response.data
-        console.log(participants);
+        const participants = response.data
+        
+        const activeUsersUL = document.querySelector("#active-users");
+        const activeUsers = activeUsersUL.children
+
+        // Removing displayed users
+        for (let i = activeUsers.length - 1; i >= 0; i--){
+            activeUsersUL.removeChild(activeUsers[i]);
+        }
+
+        // Adding online users
+        for (index in participants){
+            const user = document.createElement("li");
+            const userDiv = document.createElement("div");
+            const userName = document.createElement("p");
+            const personIcon = document.createElement("ion-icon");
+            const checkIcon = document.createElement("ion-icon");
+            
+            user.classList.add("menu-option");
+            user.setAttribute("onclick", "selectMenuOption(this)");
+            userName.innerHTML = participants[index].name;
+            personIcon.name = "person-circle";
+            checkIcon.name = "checkmark";
+
+            userDiv.appendChild(personIcon);
+            userDiv.appendChild(userName);
+            user.appendChild(userDiv);
+            user.appendChild(checkIcon);
+            activeUsersUL.appendChild(user);
+        }
     }
 
     const usersPromise = axiosBase.get("/participants");
