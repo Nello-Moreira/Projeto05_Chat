@@ -166,7 +166,7 @@ div.message-input div {
     width: 93%;
 }
 
-.private-info {
+#msg-privacy-info{
     font-size: 16px;
     font-weight: 400;
     color: rgb(130, 130, 130);

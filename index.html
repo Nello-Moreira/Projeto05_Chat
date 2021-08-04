@@ -29,9 +29,9 @@
     <div class="menu-container">
         <div onclick="closeMenu(this)"></div>
         <div class="menu">
-            <section>
+            <section id="privacy-settings">
                 <h2>Escolha a visibilidade:</h2>
-                <div class="menu-option" onclick="selectMenuOption(this)">
+                <div id="public" class="menu-option" onclick="selectMenuOption(this)">
                     <div>
                         <ion-icon name="lock-open"></ion-icon>
                         <p>Público</p>
@@ -39,7 +39,7 @@
                     <ion-icon class="active" name="checkmark"></ion-icon>
                 </div>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
+                <div id="private" class="menu-option" onclick="selectMenuOption(this)">
                     <div>
                         <ion-icon name="lock-closed"></ion-icon>
                         <p>Reservadamente</p>
@@ -48,159 +48,111 @@
                 </div>
             </section>
 
-            <section>
+            <section id="contacts">
                 <h2>Escolha um contato para enviar mensagem:</h2>
-                <div class="menu-option" onclick="selectMenuOption(this)">
+                <div id="all" class="menu-option" onclick="selectMenuOption(this)">
                     <div>
                         <ion-icon name="people"></ion-icon>
                         <p>Todos</p>
                     </div>
                     <ion-icon class="active" name="checkmark"></ion-icon>
                 </div>
+                <ul id="active-users">
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                    <li class="menu-option" onclick="selectMenuOption(this)">
+                        <div>
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Maria</p>
+                        </div>
+                        <ion-icon class="" name="checkmark"></ion-icon>
+                    </li>
 
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
-
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
-
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
-
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
-
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
-
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
-
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
-
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
-
-                <div class="menu-option" onclick="selectMenuOption(this)">
-                    <div>
-                        <ion-icon name="person-circle"></ion-icon>
-                        <p>Maria</p>
-                    </div>
-                    <ion-icon class="" name="checkmark"></ion-icon>
-                </div>
+                </ul>
 
             </section>
 
@@ -369,13 +321,14 @@
     <div class="message-input">
         <div>
             <input type="text" name="message" id="new-message" placeholder="Escreva aqui...">
-            <div class="private-info">Enviando para Maria (reservadamente)</div>
+            <div id="msg-privacy-info">Enviando para Todos</div>
         </div>
         <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/scripts/scripts.js"></script>
 </body>
 
