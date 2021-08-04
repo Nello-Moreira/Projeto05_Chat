@@ -133,6 +133,7 @@ main {
     margin: 5px 0;
     background-color: rgba(255, 255, 255);
     border-radius: 2px;
+    display: flex;
 }
 
 .time {
@@ -141,10 +142,15 @@ main {
 
 .msg-infos {
     margin: 0 5px;
+    display: flex;
 }
 
 .msg-sender, .msg-receiver {
     font-weight: 700;
+}
+
+.msg-to{
+    margin: 0 5px;
 }
 
 div.message-input {
@@ -195,11 +201,11 @@ div.message-input ion-icon:hover {
     cursor: pointer;
 }
 
-.in-out-color {
+.status-msg-color {
     background-color: rgba(220, 220, 220, 1);
 }
 
-.private-color {
+.private-msg-color {
     background-color: rgba(255, 222, 222, 1);
 }
 

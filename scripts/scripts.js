@@ -3,8 +3,6 @@ const axiosBase = axios.create({
     timeout: 2000
 });
 
-let allMessages = "";
-
 function openMenu() {
     const menuContainer = document.querySelector(".menu-container");
     const menu = menuContainer.querySelector(".menu");
@@ -73,18 +71,114 @@ function updateMsgPrivacyInfo() {
     document.querySelector("#msg-privacy-info").innerHTML = sendToInfo;
 }
 
+function updateMsgScreen(msgList, msgScreen){
+    for (index in msgList){
+        const currentMessage = msgList[index];
+        const msgDiv = document.createElement("div");
+        const timeSpan = document.createElement("span");
+        const msgInfosDiv = document.createElement("span");
+        const senderSpan = document.createElement("span");
+        const toSpan = document.createElement("span");
+        const receiverSpan = document.createElement("span");
+        const colonSpan = document.createElement("span");
+        const msgTextSpan = document.createElement("span");
+        
+        timeSpan.classList.add("time");
+        msgInfosDiv.classList.add("msg-infos");
+        senderSpan.classList.add("msg-sender");
+        toSpan.classList.add("msg-to")
+        receiverSpan.classList.add("msg-receiver");
+        msgTextSpan.classList.add("msg-text");
+        msgDiv.classList.add("message-container");
+        if (currentMessage.type == "status"){
+            msgDiv.classList.add("status-msg-color");
+        }else if (currentMessage.type == "private_message"){
+            msgDiv.classList.add("private-msg-color");
+        }
+
+        timeSpan.innerHTML = `(${currentMessage.time})`;
+        senderSpan.innerHTML = `${currentMessage.from}`;
+        toSpan.innerHTML = " para ";
+        receiverSpan.innerHTML = `${currentMessage.to}`;
+        colonSpan.innerHTML = ":";
+        msgTextSpan.innerHTML = `${currentMessage.text}`;
+
+        msgInfosDiv.appendChild(senderSpan);
+        msgInfosDiv.appendChild(toSpan);
+        msgInfosDiv.appendChild(receiverSpan);
+        msgInfosDiv.appendChild(colonSpan);
+
+        msgDiv.appendChild(timeSpan);
+        msgDiv.appendChild(msgInfosDiv);
+        msgDiv.appendChild(msgTextSpan);
+        
+        msgScreen.appendChild(msgDiv);
+        msgDiv.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    }
+}
+
+function getLastMsgIndex(displayedMsgs, serverMsgs) {
+    function getTypeOfMsg(msgContainer){
+        if (msgContainer.classList.contains("status-msg-color")){
+            return "status";
+        }else if(msgContainer.classList.contains("private-msg-color")){
+            return "private_message";
+        }else{
+            return "message";
+        }
+    }
+    function equalMsgs(firstMsg, secondMsg){
+        for (key in firstMsg){
+            if (firstMsg[key] !== secondMsg[key]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    const lastMsg = displayedMsgs[displayedMsgs.length - 1]
+    const lastMsgObject = {
+        from: lastMsg.querySelector("span.msg-sender").innerHTML,
+        to: lastMsg.querySelector("span.msg-receiver").innerHTML,
+        text: lastMsg.querySelector("span.msg-text").innerHTML,
+        type: getTypeOfMsg(lastMsg),
+        time: lastMsg.querySelector("span.time").innerHTML.slice(1, 9)
+    }
+
+    for (let i = serverMsgs.length - 1; i >= 0; i--) {
+        if (equalMsgs(lastMsgObject, serverMsgs[i])) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 function getMessages(){
-    function returnMessages(response){
-        allMessages = response.data
-        console.log(allMessages);
+    function updateMsgs(response){
+        const serverMsgs = response.data
+        const msgScreen = document.querySelector("main");
+        const displayedMsgs = document.querySelectorAll(".message-container")
+        
+        if (displayedMsgs.length === 0){
+            updateMsgScreen(serverMsgs, msgScreen);
+        }else{
+            const lastMsgIndex = getLastMsgIndex(displayedMsgs, serverMsgs);
+
+            if (lastMsgIndex !== (serverMsgs.length - 1)){
+
+                // the screen should updated from the message following the last
+                updateMsgScreen(serverMsgs.slice(lastMsgIndex + 1), msgScreen);
+            }
+        }
     }
 
     const msgPromise = axiosBase.get("/messages");
-    msgPromise.then(returnMessages);
+    msgPromise.then(updateMsgs);
 }
 
 function getParticipants(){
-    function returnParticipants(response){
+    function updateParticipants(response){
         const participants = response.data
         
         const activeUsersUL = document.querySelector("#active-users");
@@ -118,7 +212,7 @@ function getParticipants(){
     }
 
     const usersPromise = axiosBase.get("/participants");
-    usersPromise.then(returnParticipants);
+    usersPromise.then(updateParticipants);
 }
 
 function sendMessage() {
@@ -130,3 +224,13 @@ function sendMessage() {
         messageInput.value = "";
     }
 }
+
+function timedFunctions(){
+    getMessages();
+    getParticipants();
+
+    setInterval(getMessages, 3000);
+    setInterval(getParticipants, 10000);
+}
+
+timedFunctions();
