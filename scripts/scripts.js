@@ -3,29 +3,34 @@ const axiosBase = axios.create({
     timeout: 2000
 });
 
-function login(){
-    const userName = document.querySelector('#username').value;
-    const loginPromise = axiosBase.post("/participants",
-    {
-        name: userName
-    });
-    loginPromise.then(timedFunctions);
-    loginPromise.catch(loginError);
+let loginName = "";
+
+function login() {
+    loginName = document.querySelector('#username').value;
+
+    if (loginName !== "") {
+        axiosBase.post("/participants",
+            {
+                name: loginName
+            })
+            .then(timedFunctions)
+            .catch(loginError);
+    }
 }
 
-function loginError(error){
-    const errorStatus = error.response.status; 
-    
-    if (errorStatus === 400){
+function loginError(error) {
+    const errorStatus = error.response.status;
+
+    if (errorStatus === 400) {
         document.querySelector("#login-error").innerHTML = "Este nome de usuário já está em uso, por favor, tente outro."
     }
 }
 
-function refreshStatus(userName){
+function refreshStatus(loginName) {
     axiosBase.post("/status",
-    {
-        name: userName
-    });
+        {
+            name: loginName
+        });
 }
 
 function openMenu() {
@@ -47,18 +52,18 @@ function closeMenu(menuContainerBlankSpace) {
 function selectMenuOption(element) {
     let elementParentNode = element.parentNode;
 
-    if (elementParentNode.tagName === "UL"){
+    if (elementParentNode.tagName === "UL") {
         elementParentNode = elementParentNode.parentNode;
     }
 
-    const section = elementParentNode; 
+    const section = elementParentNode;
     const activeList = section.querySelectorAll("ion-icon.active");
-    
+
     if (activeList.length > 0) {
         activeList[0].classList.remove("active");
     }
     element.querySelectorAll('ion-icon')[1].classList.add("active");
-    
+
     // If the option "Todos" is selected, the option "Público" must be active
     if (getReceiver() === "Todos") {
         const privacySection = document.querySelector("#privacy-settings");
@@ -68,36 +73,44 @@ function selectMenuOption(element) {
         public.querySelectorAll("ion-icon")[1].classList.add("active");
         private.querySelectorAll("ion-icon")[1].classList.remove("active");
     }
-
-    updateMsgPrivacyInfo();
 }
 
-function getPrivacy(){
+function getPrivacy() {
     const privacySection = document.querySelector("#privacy-settings");
     const privacySelection = privacySection.querySelector("ion-icon.active").parentNode;
-    
+
     return privacySelection.children[0].children[1].innerHTML;
 }
 
-function getReceiver(){
+function getReceiver() {
     const receiverSection = document.querySelector("#contacts")
-    const receiver = receiverSection.querySelector("ion-icon.active").parentNode;
-    
-    return receiver.children[0].children[1].innerHTML;
+    let receiverName = "";
+    try {
+        const receiver = receiverSection.querySelector("ion-icon.active").parentNode;
+        receiverName = receiver.children[0].children[1].innerHTML;
+    } catch (error) {
+        // if the receiver user left the chat change receiver to all
+        selectMenuOption(document.querySelector("#all"));
+        const receiver = receiverSection.querySelector("ion-icon.active").parentNode;
+        receiverName = receiver.children[0].children[1].innerHTML;
+    } finally {
+        updateMsgPrivacyInfo(receiverName);
+        return receiverName;
+    }
 }
 
-function updateMsgPrivacyInfo() {
-    let sendToInfo = `Enviando para ${getReceiver()}`;
-    
-    if (getPrivacy() === "Reservadamente"){
+function updateMsgPrivacyInfo(receiver) {
+    let sendToInfo = `Enviando para ${receiver}`;
+
+    if (getPrivacy() === "Reservadamente") {
         sendToInfo += " (reservadamente)"
     }
 
     document.querySelector("#msg-privacy-info").innerHTML = sendToInfo;
 }
 
-function updateMsgScreen(msgList, msgScreen, behavior){
-    for (index in msgList){
+function updateMsgScreen(msgList, msgScreen, behavior) {
+    for (index in msgList) {
         const currentMessage = msgList[index];
         const msgDiv = document.createElement("div");
         const timeSpan = document.createElement("span");
@@ -107,7 +120,7 @@ function updateMsgScreen(msgList, msgScreen, behavior){
         const receiverSpan = document.createElement("span");
         const colonSpan = document.createElement("span");
         const msgTextSpan = document.createElement("span");
-        
+
         timeSpan.classList.add("time");
         msgInfosDiv.classList.add("msg-infos");
         senderSpan.classList.add("msg-sender");
@@ -115,9 +128,9 @@ function updateMsgScreen(msgList, msgScreen, behavior){
         receiverSpan.classList.add("msg-receiver");
         msgTextSpan.classList.add("msg-text");
         msgDiv.classList.add("message-container");
-        if (currentMessage.type == "status"){
+        if (currentMessage.type == "status") {
             msgDiv.classList.add("status-msg-color");
-        }else if (currentMessage.type == "private_message"){
+        } else if (currentMessage.type == "private_message") {
             msgDiv.classList.add("private-msg-color");
         }
 
@@ -136,25 +149,26 @@ function updateMsgScreen(msgList, msgScreen, behavior){
         msgDiv.appendChild(timeSpan);
         msgDiv.appendChild(msgInfosDiv);
         msgDiv.appendChild(msgTextSpan);
-        
+
         msgScreen.appendChild(msgDiv);
-        msgDiv.scrollIntoView({behavior: behavior, block: "start", inline: "nearest"});
+        msgDiv.scrollIntoView({ behavior: behavior, block: "start", inline: "nearest" });
     }
 }
 
 function getLastMsgIndex(displayedMsgs, serverMsgs) {
-    function getTypeOfMsg(msgContainer){
-        if (msgContainer.classList.contains("status-msg-color")){
+    function getTypeOfMsg(msgContainer) {
+        if (msgContainer.classList.contains("status-msg-color")) {
             return "status";
-        }else if(msgContainer.classList.contains("private-msg-color")){
+        } else if (msgContainer.classList.contains("private-msg-color")) {
             return "private_message";
-        }else{
+        } else {
             return "message";
         }
     }
-    function equalMsgs(firstMsg, secondMsg){
-        for (key in firstMsg){
-            if (firstMsg[key] !== secondMsg[key]){
+
+    function equalMsgs(firstMsg, secondMsg) {
+        for (key in firstMsg) {
+            if (firstMsg[key] !== secondMsg[key]) {
                 return false;
             }
         }
@@ -179,68 +193,152 @@ function getLastMsgIndex(displayedMsgs, serverMsgs) {
     return -1;
 }
 
-function getMessages(){
-    function updateMsgs(response){
+function getMessages() {
+    function updateMsgs(response) {
         const serverMsgs = response.data
         const msgScreen = document.querySelector("main");
         const displayedMsgs = document.querySelectorAll(".message-container")
-        
-        if (displayedMsgs.length === 0){
+
+        if (displayedMsgs.length === 0) {
             updateMsgScreen(serverMsgs, msgScreen, "auto");
-        }else{
+        } else {
             const lastMsgIndex = getLastMsgIndex(displayedMsgs, serverMsgs);
 
-            if (lastMsgIndex !== (serverMsgs.length - 1)){
+            if (lastMsgIndex !== (serverMsgs.length - 1)) {
 
                 // the screen should updated from the message following the last
                 updateMsgScreen(serverMsgs.slice(lastMsgIndex + 1), msgScreen, "smooth");
             }
         }
     }
-
-    const msgPromise = axiosBase.get("/messages");
-    msgPromise.then(updateMsgs);
+    axiosBase.get("/messages")
+        .then(updateMsgs);
 }
 
-function getParticipants(){
-    function updateParticipants(response){
-        const participants = response.data
-        
-        const activeUsersUL = document.querySelector("#active-users");
-        const activeUsers = activeUsersUL.children
+function getUserNames(userMenuList) {
+    const displayedUsers = userMenuList.children;
+    const userNames = [];
 
-        // Removing displayed users
-        for (let i = activeUsers.length - 1; i >= 0; i--){
-            activeUsersUL.removeChild(activeUsers[i]);
+    for (let i = 0; i < displayedUsers.length; i++) {
+        userNames.push(displayedUsers[i].querySelector("p").innerHTML);
+    }
+    return userNames;
+}
+
+function getServerUsernames(serverObject) {
+    const names = [];
+
+    for (user in serverObject) {
+        names.push(serverObject[user].name);
+    }
+    return names
+}
+
+function mergeChatUsersWithServerUsers(userNames, serverParticipants, userMenuList) {
+    const displayedUsers = userMenuList.children;
+    let usersToAdd = [];
+    let participantsIndex = 0;
+
+    for (let i = 0; i < userNames.length; i++) {
+        if (serverParticipants.length === 0) {
+            displayedUsers[i].remove();
+            userNames.splice(i, 1);
+            i--;
+
+        } else {
+            for (let j = participantsIndex; j < serverParticipants.length; j++) {
+
+                if (userNames[i] === serverParticipants[j].name) {
+                    serverParticipants.splice(j, 1);
+                    // participants names don't repeat themselves and are sorted alphabetically
+                    // so the next loop can start from this index
+                    participantsIndex = j;
+                    break;
+                } else {
+                    if (j === serverParticipants.length - 1) {
+                        displayedUsers[i].remove();
+                        userNames.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+        }
+    }
+    if (serverParticipants.length !== 0) {
+        usersToAdd = getServerUsernames(serverParticipants);
+        addUsers(usersToAdd, userMenuList);
+    }
+}
+
+function addUsers(usersToAdd, userMenuList) {
+    const usersLI = [];
+
+    //creating elements
+    for (index in usersToAdd) {
+        const user = document.createElement("li");
+        const userDiv = document.createElement("div");
+        const userName = document.createElement("p");
+        const personIcon = document.createElement("ion-icon");
+        const checkIcon = document.createElement("ion-icon");
+
+        user.classList.add("menu-option");
+        user.setAttribute("onclick", "selectMenuOption(this)");
+        userName.innerHTML = usersToAdd[index];
+        personIcon.name = "person-circle";
+        checkIcon.name = "checkmark";
+        if (usersToAdd[index] === loginName) {
+            user.classList.add("hidden");
         }
 
-        // Adding online users
-        for (index in participants){
-            const user = document.createElement("li");
-            const userDiv = document.createElement("div");
-            const userName = document.createElement("p");
-            const personIcon = document.createElement("ion-icon");
-            const checkIcon = document.createElement("ion-icon");
-            
-            user.classList.add("menu-option");
-            user.setAttribute("onclick", "selectMenuOption(this)");
-            userName.innerHTML = participants[index].name;
-            personIcon.name = "person-circle";
-            checkIcon.name = "checkmark";
+        userDiv.appendChild(personIcon);
+        userDiv.appendChild(userName);
+        user.appendChild(userDiv);
+        user.appendChild(checkIcon);
 
-            userDiv.appendChild(personIcon);
-            userDiv.appendChild(userName);
-            user.appendChild(userDiv);
-            user.appendChild(checkIcon);
-            activeUsersUL.appendChild(user);
+        if (userMenuList.children.length === 0) {
+            userMenuList.appendChild(user);
+        } else {
+            usersLI.push(user);
         }
     }
 
-    const usersPromise = axiosBase.get("/participants");
-    usersPromise.then(updateParticipants);
+    if (usersLI.length !== 0) {
+        // Adding elements sorted alphabetically
+        for (newUser in usersLI) {
+            let newUserName = usersLI[newUser].querySelector("p").innerHTML.toLowerCase();
+            let oldUserIndex = 0;
+
+            for (let i = oldUserIndex; i < userMenuList.children.length; i++) {
+                let oldUserName = userMenuList.children[i].querySelector("p").innerHTML.toLowerCase();
+
+                if (newUserName < oldUserName) {
+                    userMenuList.insertBefore(usersLI[newUser], userMenuList.children[i]);
+                    oldUserIndex = i;
+                    break;
+                } else {
+                    if (i === userMenuList.children.length - 1) {
+                        userMenuList.appendChild(usersLI[newUser]);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
-function checkMsgInput(){
+function getParticipants() {
+    function updateParticipants(response) {
+        const serverParticipants = response.data
+        const userMenuList = document.querySelector("#active-users");
+        const userNames = getUserNames(userMenuList);
+
+        mergeChatUsersWithServerUsers(userNames, serverParticipants, userMenuList);
+    }
+    axiosBase.get("/participants")
+        .then(updateParticipants);
+}
+
+function checkMsgInput() {
     const msgContainer = document.querySelector(".message-input-container");
     const msg = msgContainer.querySelector("input").value;
     const sendIcon = msgContainer.querySelector("ion-icon");
@@ -248,32 +346,53 @@ function checkMsgInput(){
     if (msg !== "") {
         sendIcon.classList.add("active");
         sendIcon.setAttribute("onclick", "sendMessage()");
-    }else{
+    } else {
         sendIcon.classList.remove("active");
         sendIcon.removeAttribute("onclick");
     }
 }
 
 function sendMessage() {
-    const main = document.querySelector('main');
     const messageInput = document.querySelector('#new-message');
 
     if (messageInput.value !== "") {
-        console.log(messageInput.value);
+        const typePublic = document.querySelector("#public").querySelector("p").innerHTML;
+        const typePrivate = document.querySelector("#private").querySelector("p").innerHTML;
+        let msgType = getPrivacy();
+
+        if (msgType === typePublic) {
+            msgType = "message";
+        } else if (msgType === typePrivate) {
+            msgType = "private_message";
+        }
+        axiosBase.post("/messages", {
+            from: loginName,
+            to: getReceiver(),
+            text: messageInput.value,
+            type: msgType,
+        })
+            .then(getMessages)
+            .catch(reloadPage)
+
         messageInput.value = "";
     }
 }
 
-function timedFunctions(){
-    const userName = document.querySelector('#username').value;
-    document.querySelector(".login-page").classList.add("hidden");
+function reloadPage() {
+    window.location.reload();
+}
 
-    setInterval(checkMsgInput, 500);
-    setInterval(refreshStatus, 5000, userName);
-    
+function timedFunctions() {
+    document.querySelector(".login-page").remove();
+
+    // Functions that interact with the server
     getMessages();
     getParticipants();
-
     setInterval(getMessages, 3000);
     setInterval(getParticipants, 10000);
+    setInterval(refreshStatus, 5000, loginName);
+
+    // Exclusively front-end functions
+    setInterval(checkMsgInput, 500);
+    setInterval(getReceiver, 500);
 }

@@ -172,6 +172,7 @@ header ion-icon {
 }
 
 main {
+    width: 100%;
     padding-top: 25px;
     padding-bottom: 1px;
     margin-bottom: var(--message-input-height);
