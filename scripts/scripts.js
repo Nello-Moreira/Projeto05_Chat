@@ -4,6 +4,9 @@ const axiosBase = axios.create({
 });
 
 let loginName = "";
+const privateMessage = "private_message";
+const statusMessage = "status";
+const STATUS_CODE = {nameUnavailable: 400};
 
 function login() {
     loginName = document.querySelector('#username').value;
@@ -21,7 +24,7 @@ function login() {
 function loginError(error) {
     const errorStatus = error.response.status;
 
-    if (errorStatus === 400) {
+    if (errorStatus === STATUS_CODE.nameUnavailable) {
         document.querySelector("#login-error").innerHTML = "Este nome de usuário já está em uso, por favor, tente outro."
     }
 }
@@ -112,6 +115,13 @@ function updateMsgPrivacyInfo(receiver) {
 function updateMsgScreen(msgList, msgScreen, behavior) {
     for (index in msgList) {
         const currentMessage = msgList[index];
+
+        if (currentMessage.type === privateMessage){
+            if ((currentMessage.to !== loginName) && (currentMessage.from !== loginName)){
+                continue
+            }
+        }
+
         const msgDiv = document.createElement("div");
         const timeSpan = document.createElement("span");
         const msgInfosDiv = document.createElement("span");
@@ -128,9 +138,9 @@ function updateMsgScreen(msgList, msgScreen, behavior) {
         receiverSpan.classList.add("msg-receiver");
         msgTextSpan.classList.add("msg-text");
         msgDiv.classList.add("message-container");
-        if (currentMessage.type == "status") {
+        if (currentMessage.type == statusMessage) {
             msgDiv.classList.add("status-msg-color");
-        } else if (currentMessage.type == "private_message") {
+        } else if (currentMessage.type == privateMessage) {
             msgDiv.classList.add("private-msg-color");
         }
 
@@ -158,9 +168,9 @@ function updateMsgScreen(msgList, msgScreen, behavior) {
 function getLastMsgIndex(displayedMsgs, serverMsgs) {
     function getTypeOfMsg(msgContainer) {
         if (msgContainer.classList.contains("status-msg-color")) {
-            return "status";
+            return statusMessage;
         } else if (msgContainer.classList.contains("private-msg-color")) {
-            return "private_message";
+            return privateMessage;
         } else {
             return "message";
         }
