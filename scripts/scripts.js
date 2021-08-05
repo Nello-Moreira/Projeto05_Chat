@@ -6,7 +6,7 @@ const axiosBase = axios.create({
 let loginName = "";
 const privateMessage = "private_message";
 const statusMessage = "status";
-const STATUS_CODE = {nameUnavailable: 400};
+const STATUS_CODE = { nameUnavailable: 400 };
 
 function login() {
     loginName = document.querySelector('#username').value;
@@ -115,12 +115,15 @@ function updateMsgPrivacyInfo(receiver) {
 function updateMsgScreen(msgList, msgScreen, behavior) {
     for (index in msgList) {
         const currentMessage = msgList[index];
+        let toSpanText = "";
 
-        if (currentMessage.type === privateMessage){
-            if ((currentMessage.to !== loginName) && (currentMessage.from !== loginName)){
+        if (currentMessage.type === privateMessage) {
+            if ((currentMessage.to !== loginName) && (currentMessage.from !== loginName)) {
                 continue
             }
+            toSpanText = "reservadamente ";
         }
+        toSpanText += "para";
 
         const msgDiv = document.createElement("div");
         const timeSpan = document.createElement("span");
@@ -146,7 +149,7 @@ function updateMsgScreen(msgList, msgScreen, behavior) {
 
         timeSpan.innerHTML = `(${currentMessage.time})`;
         senderSpan.innerHTML = `${currentMessage.from}`;
-        toSpan.innerHTML = " para ";
+        toSpan.innerHTML = toSpanText;
         receiverSpan.innerHTML = `${currentMessage.to}`;
         colonSpan.innerHTML = ":";
         msgTextSpan.innerHTML = `${currentMessage.text}`;
@@ -356,9 +359,17 @@ function checkMsgInput() {
     if (msg !== "") {
         sendIcon.classList.add("active");
         sendIcon.setAttribute("onclick", "sendMessage()");
+        document.addEventListener("keypress", enterToSend);
     } else {
         sendIcon.classList.remove("active");
         sendIcon.removeAttribute("onclick");
+        document.removeEventListener("keypress", enterToSend);
+    }
+}
+
+function enterToSend(event) {
+    if (event.key === "Enter"){
+        sendMessage();
     }
 }
 
