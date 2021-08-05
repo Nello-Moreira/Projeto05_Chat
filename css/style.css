@@ -25,7 +25,58 @@ header img {
 }
 
 header ion-icon {
+    cursor: pointer;
     font-size: 45px;
+}
+
+.login-page{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-page>img{
+    width: 130px;
+}
+
+#username{
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    height: 54px;
+    width: 261px;
+    border: 1px solid rgba(200, 200, 200, 1);
+    border-radius: 4px;
+    margin: 95px 0 15px;
+    outline-color:rgba(150, 150, 150, 1);
+}
+
+#login-button{
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    color: rgba(105, 105, 105, 1);
+    width: 109px;
+    height: 45px;
+    border: 1px solid rgba(200, 200, 200, 1);
+    background-color: rgba(231, 231, 231, 1);
+}
+
+#login-error{
+    margin-top: 25px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    color: rgb(200, 0, 0);
 }
 
 .menu-container{
@@ -153,7 +204,7 @@ main {
     margin: 0 5px;
 }
 
-div.message-input {
+div.message-input-container {
     box-sizing: border-box;
     height: var(--message-input-height);
     width: 100%;
@@ -168,7 +219,7 @@ div.message-input {
     align-items: center;
 }
 
-div.message-input div {
+div.message-input-container div {
     width: 93%;
 }
 
@@ -179,7 +230,7 @@ div.message-input div {
     margin-top: 10px;
 }
 
-div.message-input input {
+div.message-input-container input {
     font-family: var(--font-family);
     font-size: 18px;
     font-weight: 400;
@@ -188,17 +239,19 @@ div.message-input input {
     outline: none;
 }
 
-div.message-input input::placeholder {
+div.message-input-container input::placeholder {
     font-style: italic;
 }
 
-div.message-input ion-icon {
+div.message-input-container ion-icon {
     font-size: 26px;
+    cursor: default;
+    transition: color .3s ease;
 }
 
-div.message-input ion-icon:hover {
-    font-size: 26px;
+div.message-input-container ion-icon.active {
     cursor: pointer;
+    color: rgb(0, 160, 255);
 }
 
 .status-msg-color {

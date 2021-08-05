@@ -3,6 +3,31 @@ const axiosBase = axios.create({
     timeout: 2000
 });
 
+function login(){
+    const userName = document.querySelector('#username').value;
+    const loginPromise = axiosBase.post("/participants",
+    {
+        name: userName
+    });
+    loginPromise.then(timedFunctions);
+    loginPromise.catch(loginError);
+}
+
+function loginError(error){
+    const errorStatus = error.response.status; 
+    
+    if (errorStatus === 400){
+        document.querySelector("#login-error").innerHTML = "Este nome de usuário já está em uso, por favor, tente outro."
+    }
+}
+
+function refreshStatus(userName){
+    axiosBase.post("/status",
+    {
+        name: userName
+    });
+}
+
 function openMenu() {
     const menuContainer = document.querySelector(".menu-container");
     const menu = menuContainer.querySelector(".menu");
@@ -71,7 +96,7 @@ function updateMsgPrivacyInfo() {
     document.querySelector("#msg-privacy-info").innerHTML = sendToInfo;
 }
 
-function updateMsgScreen(msgList, msgScreen){
+function updateMsgScreen(msgList, msgScreen, behavior){
     for (index in msgList){
         const currentMessage = msgList[index];
         const msgDiv = document.createElement("div");
@@ -113,7 +138,7 @@ function updateMsgScreen(msgList, msgScreen){
         msgDiv.appendChild(msgTextSpan);
         
         msgScreen.appendChild(msgDiv);
-        msgDiv.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+        msgDiv.scrollIntoView({behavior: behavior, block: "start", inline: "nearest"});
     }
 }
 
@@ -161,14 +186,14 @@ function getMessages(){
         const displayedMsgs = document.querySelectorAll(".message-container")
         
         if (displayedMsgs.length === 0){
-            updateMsgScreen(serverMsgs, msgScreen);
+            updateMsgScreen(serverMsgs, msgScreen, "auto");
         }else{
             const lastMsgIndex = getLastMsgIndex(displayedMsgs, serverMsgs);
 
             if (lastMsgIndex !== (serverMsgs.length - 1)){
 
                 // the screen should updated from the message following the last
-                updateMsgScreen(serverMsgs.slice(lastMsgIndex + 1), msgScreen);
+                updateMsgScreen(serverMsgs.slice(lastMsgIndex + 1), msgScreen, "smooth");
             }
         }
     }
@@ -215,6 +240,20 @@ function getParticipants(){
     usersPromise.then(updateParticipants);
 }
 
+function checkMsgInput(){
+    const msgContainer = document.querySelector(".message-input-container");
+    const msg = msgContainer.querySelector("input").value;
+    const sendIcon = msgContainer.querySelector("ion-icon");
+
+    if (msg !== "") {
+        sendIcon.classList.add("active");
+        sendIcon.setAttribute("onclick", "sendMessage()");
+    }else{
+        sendIcon.classList.remove("active");
+        sendIcon.removeAttribute("onclick");
+    }
+}
+
 function sendMessage() {
     const main = document.querySelector('main');
     const messageInput = document.querySelector('#new-message');
@@ -226,11 +265,15 @@ function sendMessage() {
 }
 
 function timedFunctions(){
+    const userName = document.querySelector('#username').value;
+    document.querySelector(".login-page").classList.add("hidden");
+
+    setInterval(checkMsgInput, 500);
+    setInterval(refreshStatus, 5000, userName);
+    
     getMessages();
     getParticipants();
 
     setInterval(getMessages, 3000);
     setInterval(getParticipants, 10000);
 }
-
-timedFunctions();
