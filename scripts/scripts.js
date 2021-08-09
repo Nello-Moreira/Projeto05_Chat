@@ -411,6 +411,9 @@ function sendMessage() {
 function loginError(error) {
     const errorStatus = error.response.status;
 
+    document.querySelector(".login-input").classList.remove("hidden");
+    document.querySelector(".login-animation-container").classList.add("hidden");
+
     if (errorStatus === STATUS_CODE.nameUnavailable) {
         document.querySelector("#login-error").innerHTML = "Este nome de usuário já está em uso, por favor, tente outro."
     }
@@ -419,8 +422,6 @@ function loginError(error) {
 function displayWaitingAnimation(){
     document.querySelector(".login-input").classList.add("hidden");
     document.querySelector(".login-animation-container").classList.remove("hidden");
-
-    setTimeout(timedFunctions, 2000);
 }
 
 function timedFunctions() {
@@ -441,11 +442,12 @@ function login() {
     loginName = document.querySelector('#username').value;
 
     if (loginName !== "") {
+        displayWaitingAnimation()
         axiosBase.post("/participants",
             {
                 name: loginName
             })
-            .then(displayWaitingAnimation)
+            .then(timedFunctions)
             .catch(loginError);
     }
 }
