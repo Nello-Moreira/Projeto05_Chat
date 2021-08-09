@@ -24,9 +24,17 @@
 
     <div class="login-page">
         <img src="/assets/chat_logo.png">
-        <input type="text" name="username" id="username" placeholder="Digite seu nome">
-        <input type="button" value="Entrar" id="login-button" onclick="login()">
-        <p id="login-error"></p>
+        <div class="login-input">
+            <input type="text" name="username" id="username" placeholder="Digite seu nome">
+            <input type="button" value="Entrar" id="login-button" onclick="login()">
+            <p id="login-error"></p>
+        </div>
+        <div class="login-animation-container hidden">
+            <div class="circle-container">
+                <div class="circle"></div>
+            </div>
+            <p>Entrando...</p>
+        </div>
     </div>
 
 
@@ -59,7 +67,7 @@
 
             <section id="contacts">
                 <h2>Escolha um contato para enviar mensagem:</h2>
-                
+
                 <div id="all" class="menu-option" onclick="selectMenuOption(this)">
                     <div>
                         <ion-icon name="people"></ion-icon>
@@ -76,7 +84,7 @@
     </div>
 
     <main></main>
-    
+
     <div class="message-input-container">
         <div>
             <input type="text" name="message" id="new-message" placeholder="Escreva aqui...">

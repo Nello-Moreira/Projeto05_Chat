@@ -416,6 +416,13 @@ function loginError(error) {
     }
 }
 
+function displayWaitingAnimation(){
+    document.querySelector(".login-input").classList.add("hidden");
+    document.querySelector(".login-animation-container").classList.remove("hidden");
+
+    setTimeout(timedFunctions, 2000);
+}
+
 function timedFunctions() {
     document.querySelector(".login-page").remove();
 
@@ -438,7 +445,7 @@ function login() {
             {
                 name: loginName
             })
-            .then(timedFunctions)
+            .then(displayWaitingAnimation)
             .catch(loginError);
     }
 }
