@@ -29,7 +29,7 @@ header ion-icon {
     font-size: 45px;
 }
 
-.login-page{
+.login-page {
     position: fixed;
     top: 0;
     left: 0;
@@ -43,11 +43,18 @@ header ion-icon {
     justify-content: center;
 }
 
-.login-page>img{
+.login-page>img {
     width: 130px;
 }
 
-#username{
+.login-input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#username {
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 18px;
@@ -57,10 +64,10 @@ header ion-icon {
     border: 1px solid rgba(200, 200, 200, 1);
     border-radius: 4px;
     margin: 95px 0 15px;
-    outline-color:rgba(150, 150, 150, 1);
+    outline-color: rgba(150, 150, 150, 1);
 }
 
-#login-button{
+#login-button {
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 18px;
@@ -72,7 +79,7 @@ header ion-icon {
     border-radius: 9px;
 }
 
-#login-error{
+#login-error {
     margin-top: 25px;
     font-family: var(--font-family);
     font-weight: 400;
@@ -80,31 +87,58 @@ header ion-icon {
     color: rgb(200, 0, 0);
 }
 
-.menu-container{
+.login-animation-container {
+    font-family: var(--font-family);
+    font-size: 18px;
+    margin-top: 95px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.circle-container {
+    height: 75px;
+    position: relative;
+    margin-bottom: 20px;
+    animation: rotate-movement 2s infinite;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    background-color: #000;
+    border-radius: 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.menu-container {
     position: fixed;
     z-index: 200;
     width: 100%;
     top: 0px;
     height: 0px;
     display: flex;
-    transition: background-color var(--menu-transition-duration) ease, height calc(var(--menu-transition-duration) * 1.5) cubic-bezier(1, 0, 1, 0);;
+    transition: background-color var(--menu-transition-duration) ease, height calc(var(--menu-transition-duration) * 1.5) cubic-bezier(1, 0, 1, 0);
 }
 
-.menu-container.active{
+.menu-container.active {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     transition: background-color var(--menu-transition-duration) ease, height 0s;
 }
 
-.menu-container>div:first-child{
+.menu-container>div:first-child {
     height: 100%;
     width: calc(100% - var(--menu-width));
 }
 
-.menu{
+.menu {
     height: 100%;
     width: var(--menu-width);
-    background-color: rgba(255,255,255);
+    background-color: rgba(255, 255, 255);
     overflow-y: auto;
     position: absolute;
     left: 100vw;
@@ -114,51 +148,50 @@ header ion-icon {
     transition: left var(--menu-transition-duration) ease;
 }
 
-.menu.active{
+.menu.active {
     left: calc(100vw - var(--menu-width));
     transition: left var(--menu-transition-duration) ease;
-    
 }
 
-.menu::-webkit-scrollbar{
+.menu::-webkit-scrollbar {
     display: none;
 }
 
-.menu section{
+.menu section {
     width: 90%;
 }
 
-.menu-option{
+.menu-option {
     margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.menu-option>div{
+.menu-option>div {
     display: flex;
     align-items: center;
 }
 
-.menu-option p{
+.menu-option p {
     margin: 0 7px;
 }
 
-.menu-option>ion-icon{
-    font-size:46px;
-    color:#28BB25;
-    opacity:0;
+.menu-option>ion-icon {
+    font-size: 46px;
+    color: #28BB25;
+    opacity: 0;
 }
 
-.menu-option>ion-icon.active{
-    opacity:1;
+.menu-option>ion-icon.active {
+    opacity: 1;
 }
 
-.menu ion-icon{
+.menu ion-icon {
     font-size: 25px;
 }
 
-.menu p{
+.menu p {
     font-size: 16px;
 }
 
@@ -203,7 +236,7 @@ main {
     font-weight: 700;
 }
 
-.msg-to{
+.msg-to {
     margin: 0 5px;
 }
 
@@ -226,7 +259,7 @@ div.message-input-container div {
     width: 93%;
 }
 
-#msg-privacy-info{
+#msg-privacy-info {
     font-size: 16px;
     font-weight: 400;
     color: rgb(130, 130, 130);
@@ -267,4 +300,10 @@ div.message-input-container ion-icon.active {
 
 .hidden {
     display: none;
+}
+
+@keyframes rotate-movement {
+    100%{
+        transform: rotate(360deg);
+    }
 }
