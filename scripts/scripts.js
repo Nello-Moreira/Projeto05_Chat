@@ -193,7 +193,6 @@ function getLastMsgIndex(displayedMsgs, serverMsgs) {
     const lastMsg = displayedMsgs[displayedMsgs.length - 1]
     const lastMsgObject = {
         from: lastMsg.querySelector("span.msg-sender").innerHTML,
-        to: lastMsg.querySelector("span.msg-receiver").innerHTML,
         text: lastMsg.querySelector("span.msg-text").innerHTML,
         type: getTypeOfMsg(lastMsg),
         time: lastMsg.querySelector("span.time").innerHTML.slice(1, 9)
@@ -366,7 +365,9 @@ function getParticipants() {
 }
 
 function enterToSend(event) {
+    console.log("Enter to send");
     if (event.key === "Enter") {
+        console.log("enter");
         sendMessage();
     }
 }
@@ -379,11 +380,11 @@ function checkMsgInput() {
     if (msg !== "") {
         sendIcon.classList.add("active");
         sendIcon.setAttribute("onclick", "sendMessage()");
-        document.addEventListener("keypress", enterToSend);
+        document.addEventListener("keyup", enterToSend);
     } else {
         sendIcon.classList.remove("active");
         sendIcon.removeAttribute("onclick");
-        document.removeEventListener("keypress", enterToSend);
+        document.removeEventListener("keyup", enterToSend);
     }
 }
 
