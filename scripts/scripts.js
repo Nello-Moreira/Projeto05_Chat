@@ -133,6 +133,15 @@ function createMsgContainer(message) {
     msgTextSpan.classList.add("msg-text");
     msgDiv.classList.add("message-container");
     
+    timeSpan.innerHTML = `(${message.time})`;
+    senderSpan.innerHTML = `${message.from}`;
+    msgTextSpan.innerHTML = `${message.text}`;
+    
+    msgInfosDiv.appendChild(senderSpan);
+    msgDiv.appendChild(timeSpan);
+    msgDiv.appendChild(msgInfosDiv);
+    msgDiv.appendChild(msgTextSpan);
+
     if (message.type !== msgType.statusMsg){
         const toSpan = document.createElement("span");
         const receiverSpan = document.createElement("span");
@@ -144,21 +153,11 @@ function createMsgContainer(message) {
         toSpan.innerHTML = toSpanText;
         receiverSpan.innerHTML = `${message.to}`;
         colonSpan.innerHTML = ":";
-        
+
         msgInfosDiv.appendChild(toSpan);
         msgInfosDiv.appendChild(receiverSpan);
         msgInfosDiv.appendChild(colonSpan);
     }
-
-    timeSpan.innerHTML = `(${message.time})`;
-    senderSpan.innerHTML = `${message.from}`;
-    msgTextSpan.innerHTML = `${message.text}`;
-
-    msgInfosDiv.appendChild(senderSpan);
-    msgDiv.appendChild(timeSpan);
-    msgDiv.appendChild(msgInfosDiv);
-    msgDiv.appendChild(msgTextSpan);
-
     return msgDiv;
 }
 
